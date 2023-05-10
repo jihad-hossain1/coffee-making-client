@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const CoffeCard = ({ coffee }) => {
+  //   const [deleteCoffee, setDeleteCoffee] = useState(coffee);
   const { _id, name, quantity, supplier, taste, photo } = coffee;
 
   const handleDelete = (_id) => {
@@ -22,10 +24,10 @@ const CoffeCard = ({ coffee }) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.deletedCount > 0) {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
+            // setDeleteCoffee(data);
           });
       }
     });
@@ -55,7 +57,9 @@ const CoffeCard = ({ coffee }) => {
           <div className="card-actions justify-between ">
             <div className="btn-group btn-group-vertical space-y-4">
               <button className="btn">view</button>
-              <button className="btn">edit</button>
+              <Link to={`updateCoffee/${_id}`}>
+                <button className="btn">edit</button>
+              </Link>
               <button
                 onClick={() => handleDelete(_id)}
                 className="btn bg-orange-600"
